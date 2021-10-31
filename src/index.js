@@ -1,14 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./bookshelf.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { BookProvider } from "./shared/BookContext";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <BookProvider>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </BookProvider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
