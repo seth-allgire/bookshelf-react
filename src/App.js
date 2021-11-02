@@ -15,32 +15,30 @@ import SignupPage from "./components/SignupPage";
 
 function App() {
   return (
-    <>
-      <Router>
-        <Header />
-        <Menu />
-        <Switch>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <Route path="/signup">
-            <SignupPage />
-          </Route>
-          <Route path="/search">
-            <SearchPage />
-          </Route>
-          <Route path="/myBooks">
-            <MyBooksPage />
-          </Route>
-          <Route path="/friends">
-            <FriendsPage />
-          </Route>
-          <Route path="*">
-            <Redirect to="/login"></Redirect>
-          </Route>
-        </Switch>
-      </Router>
-    </>
+    <Router>
+      <Header />
+      <Menu />
+      <Switch>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+        <Route path="/signup">
+          <SignupPage />
+        </Route>
+        <Route path="/search">
+          <SearchPage />
+        </Route>
+        <Route path="/myBooks">
+          <MyBooksPage />
+        </Route>
+        <Route path="/friends">
+          <FriendsPage />
+        </Route>
+        <Route path="*">
+          <Redirect to="/login"></Redirect>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
