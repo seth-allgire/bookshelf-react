@@ -9,6 +9,18 @@ export function BookProvider(props) {
   const [myBooks, setMyBooks] = useState([]);
 
   useEffect(() => {
+    async function verify() {
+      try {
+        const { data: json } = await axios.get("/api/users/verify");
+        if (json.success) {
+          setUser(json.data);
+        }
+      } catch (e) {}
+    }
+    verify();
+  }, []);
+
+  useEffect(() => {
     async function getMyBooks() {
       const { data } = await axios.get(`/api/myBooks/user`);
       if (!data.success) return;
@@ -19,16 +31,16 @@ export function BookProvider(props) {
     }
   }, [user]);
 
-  useEffect(() => {
-    async function getFriendsBooks() {
-      const { data } = await axios.get; //TODO need to figure out this path
-      if (!data.success) return;
-      setMyBooks(data.data);
-    }
-    if (user.username) {
-      getFriendsBooks();
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   async function getFriendsBooks() {
+  //     const { data } = await axios.get; //TODO need to figure out this path
+  //     if (!data.success) return;
+  //     setMyBooks(data.data);
+  //   }
+  //   if (user.username) {
+  //     getFriendsBooks();
+  //   }
+  // }, [user]);
 
   const addMyBook = useCallback(
     async (book) => {
