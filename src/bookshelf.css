@@ -1,0 +1,10 @@
+body {
+  background-color: lightblue;
+}
+
+.book-container {
+  display: flex;
+  flex-direction: row;
+  padding-top: 10px;
+  width: 300px;
+}
