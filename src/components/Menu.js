@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useEffect, useState, useContext } from "react";
+import { BookContext } from "../shared/BookContext";
 import { NavLink } from "react-router-dom";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { Button } from "@mui/material";
+import userEvent from "@testing-library/user-event";
 
 function Menu() {
   const [showButton, setShowButton] = useState(false);
-
+  const { user, clearState } = useContext(BookContext);
   useEffect(() => {
     window.addEventListener("scroll", () => {
       if (window.pageYOffset > 600) {
@@ -23,21 +24,32 @@ function Menu() {
   return (
     <>
       <div>
-        <NavLink to="/login" className="link" activeClassName="active">
-          Login
-        </NavLink>
-        <NavLink to="/signup" className="link" activeClassName="active">
-          Signup
-        </NavLink>
-        <NavLink to="/search" className="link" activeClassName="active">
-          Search
-        </NavLink>
-        <NavLink to="/myBooks" className="link" activeClassName="active">
-          My Bookshelf
-        </NavLink>
-        <NavLink to="/friends" className="link" activeClassName="active">
-          Friends
-        </NavLink>
+        {!user.username && (
+          <>
+            <NavLink to="/login" className="link" activeClassName="active">
+              Login
+            </NavLink>
+            <NavLink to="/signup" className="link" activeClassName="active">
+              Signup
+            </NavLink>
+          </>
+        )}
+        {user.username && (
+          <>
+            <NavLink to="/search" className="link" activeClassName="active">
+              Search
+            </NavLink>
+            <NavLink to="/myBooks" className="link" activeClassName="active">
+              My Bookshelf
+            </NavLink>
+            <NavLink to="/friends" className="link" activeClassName="active">
+              Friends
+            </NavLink>
+          </>
+        )}
+        <Button className="logout" variant="contained" onClick={clearState}>
+          Logout
+        </Button>
       </div>
       <div>
         {showButton && (

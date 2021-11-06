@@ -5,7 +5,6 @@ const { signup, login } = require("../models/users.models");
 
 router.post("/signup", (req, res) => {
   const { username, password } = req.body;
-
   if (validate(username, password)) {
     return res.send({
       success: false,

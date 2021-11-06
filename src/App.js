@@ -12,6 +12,7 @@ import Menu from "./components/Menu";
 import MyBooksPage from "./components/MyBooksPage";
 import SearchPage from "./components/SearchPage";
 import SignupPage from "./components/SignupPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -19,21 +20,21 @@ function App() {
       <Header />
       <Menu />
       <Switch>
-        <Route path="/login">
+        <ProtectedRoute shielded={false} path="/login">
           <LoginPage />
-        </Route>
-        <Route path="/signup">
+        </ProtectedRoute>
+        <ProtectedRoute shielded={false} path="/signup">
           <SignupPage />
-        </Route>
-        <Route path="/search">
+        </ProtectedRoute>
+        <ProtectedRoute shielded={true} path="/search">
           <SearchPage />
-        </Route>
-        <Route path="/myBooks">
+        </ProtectedRoute>
+        <ProtectedRoute shielded={true} path="/myBooks">
           <MyBooksPage />
-        </Route>
-        <Route path="/friends">
+        </ProtectedRoute>
+        <ProtectedRoute shielded={true} path="/friends">
           <FriendsPage />
-        </Route>
+        </ProtectedRoute>
         <Route path="*">
           <Redirect to="/login"></Redirect>
         </Route>
