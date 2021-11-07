@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
 import { BookContext } from "../shared/BookContext";
 import BookDisplay from "./BookDisplay";
-import { CircularProgress, Pagination } from "@mui/material";
+import { CircularProgress, Button, Pagination } from "@mui/material";
 
 const bookURL = `http://openlibrary.org/search.json?title=
 `;
+// const infoURL = "https://openlibrary.org" + bookId + ".json";
+
 export default function SearchPage() {
   const { myBooks, addMyBook, deleteMyBook, search, setSearch } =
     useContext(BookContext);
@@ -14,16 +16,17 @@ export default function SearchPage() {
   const [authorQuery, setAuthorQuery] = useState("");
   // const [formError, setFormError] = useState(false);
   const { json, error, loading } = useAxios(query, "get");
+  // const numFound = search.length;
 
   useEffect(() => {
     if (json) {
       setSearch(() =>
         json.docs.map((book, idx) => ({
           key: idx,
-          bookId: book.key,
+          book_id: book.key,
           title: book.title,
           author: book.author_name.toString(),
-          coverId: book.cover_i,
+          cover_id: book.cover_i,
           published: book.first_publish_year,
         }))
       );
@@ -42,14 +45,14 @@ export default function SearchPage() {
         name="search"
         placeholder="enter title here"
       ></input>
-      <button
+      <Button
         onClick={() => {
           setQuery(bookURL + queryInput);
           setAuthorQuery("");
         }}
       >
         Search
-      </button>
+      </Button>
       {loading && (
         <>
           <CircularProgress sx={{}} />
@@ -79,13 +82,17 @@ export default function SearchPage() {
           )
           .map((val) => (
             // search.map((val) => (
+
             <BookDisplay
-              key={val.bookId}
-              bookId={val.bookId}
+              isMyBook={myBooks.some((book) => book.cover_id === val.cover_id)}
+              key={val.cover_id}
+              book_id={val.book_id}
               title={val.title}
               author={val.author}
-              coverId={val.coverId}
+              cover_id={val.cover_id}
               published={val.published}
+              addMyBook={addMyBook}
+              deleteMyBook={deleteMyBook}
             ></BookDisplay>
           ))}
       {search.length > 0 && <Pagination count={10} />}

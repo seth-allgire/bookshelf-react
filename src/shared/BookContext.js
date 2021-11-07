@@ -44,7 +44,7 @@ export function BookProvider(props) {
 
   const addMyBook = useCallback(
     async (book) => {
-      const { data } = await axios.post("/api/myBook/add", {
+      const { data } = await axios.post("/api/myBooks/add", {
         ...book,
       });
       setMyBooks((curr) => {
@@ -56,9 +56,9 @@ export function BookProvider(props) {
 
   const deleteMyBook = useCallback(
     async (id) => {
-      const { data } = await axios.delete(`/api/myBook/delete/${id}`);
+      const { data } = await axios.delete(`/api/myBooks/delete/${id}`);
       setMyBooks((curr) => {
-        return curr.filter((val) => val.book_id != data.data);
+        return curr.filter((val) => val.cover_id != data.data);
       });
     },
     [setMyBooks]
@@ -79,8 +79,10 @@ export function BookProvider(props) {
         user,
         search,
         myBooks,
+
         setUser,
         setSearch,
+
         addMyBook,
         deleteMyBook,
         clearState,

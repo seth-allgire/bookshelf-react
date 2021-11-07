@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Card,
   // CardMedia,
@@ -9,9 +10,18 @@ import {
   CardMedia,
 } from "@mui/material";
 
-function BookDisplay({ title, author, published, coverId, bookId }) {
-  const coverURL = "https://covers.openlibrary.org/b/id/" + coverId + "-M.jpg";
-  const infoURL = "https://openlibrary.org" + bookId + ".json";
+function BookDisplay({
+  title,
+  author,
+  published,
+  cover_id,
+  book_id,
+  isMyBook,
+  addMyBook,
+  deleteMyBook,
+}) {
+  const coverURL = "https://covers.openlibrary.org/b/id/" + cover_id + "-M.jpg";
+  // const infoURL = "https://openlibrary.org" + bookId + ".json";
 
   return (
     <div className="book-container">
@@ -45,11 +55,37 @@ function BookDisplay({ title, author, published, coverId, bookId }) {
         </CardContent>
 
         <CardActions>
-          <Button variant="contained" size="small" href="/bookDetails">
+          <Button
+            variant="contained"
+            size="small"
+            // target="_blank"
+            // rel="noreferrer noopener"
+          >
             More Info
           </Button>
         </CardActions>
       </Card>
+      {!isMyBook && (
+        <Button
+          variant="contained"
+          onClick={() =>
+            addMyBook({
+              title,
+              author,
+              published,
+              cover_id,
+              book_id,
+            })
+          }
+        >
+          Save to Bookshelf
+        </Button>
+      )}
+      {isMyBook && (
+        <Button variant="contained" onClick={() => deleteMyBook(cover_id)}>
+          Remove from Bookshelf
+        </Button>
+      )}
     </div>
   );
 }
