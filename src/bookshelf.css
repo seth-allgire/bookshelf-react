@@ -1,5 +1,33 @@
 body {
-  background-color: lightblue;
+  margin: 0px;
+  background-color: #d9eaf0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 20px;
+  position: relative;
+}
+
+.link:hover,
+.logout:hover {
+  color: #9ed2e6;
+  text-decoration: underline;
+  text-decoration-color: #9ed2e6;
+  text-decoration-thickness: 2px;
+}
+
+.logout {
+  background-color: #1a6a86;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  position: absolute;
+  right: 20px;
 }
 
 .book-container {
@@ -7,4 +35,48 @@ body {
   flex-direction: row;
   padding-top: 10px;
   width: 300px;
+  /* background-color: #248cb3; */
+}
+
+.cover-image {
+  width: 75px;
+}
+
+.form-container {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 5px;
+  justify-content: center;
+}
+
+.form-surround {
+  height: fit-content;
+  width: 350px;
+  margin-top: 50px;
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+
+.form-title {
+  font-weight: 600;
+  font-size: x-large;
+  padding-bottom: 20px;
+}
+
+.form-label {
+  text-align: right;
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.form-input {
+  flex-basis: 25%;
+  font-size: 14px;
+}
+
+.form-error {
+  color: #d63a1b;
+  font-style: italic;
+  height: 40px;
+  flex-basis: 100%;
 }

@@ -31,16 +31,16 @@ export function BookProvider(props) {
     }
   }, [user]);
 
-  // useEffect(() => {
-  //   async function getFriendsBooks() {
-  //     const { data } = await axios.get; //TODO need to figure out this path
-  //     if (!data.success) return;
-  //     setMyBooks(data.data);
-  //   }
-  //   if (user.username) {
-  //     getFriendsBooks();
-  //   }
-  // }, [user]);
+  //TODO HOW DO I SET THIS UP?
+  // const addBookNote = useCallback(
+  //   async (book_note) => {
+  //     const { data } = await axios.post("/api/myBooks/add", {
+  //       book_note,
+  //     });
+  //     setMyBooks;
+  //   },
+  //   [setMyBooks]
+  // );
 
   const addMyBook = useCallback(
     async (book) => {
@@ -53,6 +53,21 @@ export function BookProvider(props) {
     },
     [setMyBooks]
   );
+
+  // const getSummary = useCallback(
+  //   async
+  // )
+
+  // useEffect(() => {
+  //   async function getSummary() {
+  //     const { data } = await axios.get(`/api/myBooks/user`);
+  //     if (!data.success) return;
+  //     setMyBooks(data.data);
+  //   }
+  //   if (user.username) {
+  //     getMyBooks();
+  //   }
+  // }, [user]);
 
   const deleteMyBook = useCallback(
     async (id) => {

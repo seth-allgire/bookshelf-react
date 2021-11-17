@@ -5,6 +5,7 @@ const router = express.Router();
 const {
   addMyBook,
   deleteMyBook,
+  addBookNote,
   byUserID,
 } = require("../models/myBooks.models");
 
@@ -31,6 +32,19 @@ router.post("/add", auth, (req, res) => {
     });
   }
   addMyBook(res, book);
+});
+
+//TODO need to get this working!!!
+router.post("/add", auth, (req, res) => {
+  const { book_note } = req.body;
+  if (!book_note) {
+    return req.send({
+      success: false,
+      error: "Invalid data provided",
+      data: null,
+    });
+  }
+  addBookNote(res, req.book_note);
 });
 
 router.delete("/delete/:id", auth, (req, res) => {

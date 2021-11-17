@@ -73,7 +73,6 @@ export default function SearchPage() {
           ></input>
         </>
       )}
-
       {search &&
         !loading &&
         search
@@ -81,8 +80,6 @@ export default function SearchPage() {
             val.author.toLowerCase().includes(authorQuery.toLowerCase())
           )
           .map((val) => (
-            // search.map((val) => (
-
             <BookDisplay
               isMyBook={myBooks.some((book) => book.cover_id === val.cover_id)}
               key={val.cover_id}

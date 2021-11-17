@@ -6,7 +6,6 @@ import {
   Redirect,
 } from "react-router-dom";
 import FriendsPage from "./components/FriendsPage";
-import Header from "./components/Header";
 import LoginPage from "./components/LoginPage";
 import Menu from "./components/Menu";
 import MyBooksPage from "./components/MyBooksPage";
@@ -17,7 +16,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <Router>
-      <Header />
       <Menu />
       <Switch>
         <ProtectedRoute shielded={false} path="/login">
