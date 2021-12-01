@@ -1,7 +1,22 @@
 import React, { useState, useEffect, useContext } from "react";
+import { NavLink } from "react-router-dom";
 import { BookContext } from "../shared/BookContext";
-import { Button, Alert } from "@mui/material";
+import {
+  Button,
+  Alert,
+  Avatar,
+  CssBaseline,
+  TextField,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from "@mui/material";
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import { createTheme, ThemeProvider } from "@mui/material";
 import useAxios from "../hooks/useAxios";
+
+const theme = createTheme();
 
 function LoginPage() {
   const [error, setError] = useState(false);
@@ -9,7 +24,11 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const { setUser } = useContext(BookContext);
   const [userObj, setUserOjb] = useState(null);
-  const { json } = useAxios("/api/users/login", "post", userObj);
+  const { json, error: resError } = useAxios(
+    "/api/users/login",
+    "post",
+    userObj
+  );
 
   useEffect(() => {
     if (json && json.success) {
@@ -17,104 +36,108 @@ function LoginPage() {
     }
   }, [setUser, json]);
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <div>
-      <div className="form-container">
-        <div className="form-surround">
-          <div className="form-container form-title">Login</div>
-          <div className="form-container">
-            <label className="form-label" htmlFor="username">
-              Username:
-            </label>
-            <input
-              className="form-input"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              id="username"
-              placeholder="enter username"
-            ></input>
-            <div className="form-error">
-              {error && username.length < 4 && (
-                <Alert
-                  severity="error"
-                  sx={{
-                    height: "20px",
-                    marginTop: "5px",
-                    paddingBottom: "none",
-                  }}
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "#1A6A86" }}>
+            <PersonOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Login
+          </Typography>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  sx={{ mb: "3px" }}
+                  error={error && (username.length < 4 || username.length > 20)}
+                  required
+                  fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  helperText="Username must be between 4 and 20 characters"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  sx={{ mb: "3px" }}
+                  error={error && (password.length < 8 || password.length > 20)}
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  helperText="Password must be between 8 and 20 characters"
+                />
+                <div className="error-container">
+                  {resError && <Alert severity="error">{resError}</Alert>}
+                </div>
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{
+                mt: "15px",
+                mb: 2,
+                bgcolor: "#1A6A86",
+                "&:hover": {
+                  background: "#1a6986bb",
+                },
+              }}
+              onClick={() => {
+                if (username.length < 4 || password.length < 8) {
+                  setError(true);
+                  return;
+                }
+                setUserOjb({ username, password });
+                setUser(username);
+              }}
+            >
+              Log In
+            </Button>
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <NavLink
+                  to="/signup"
+                  variant="body2"
+                  style={{ color: "#1f2f53", textDecoration: "none" }}
                 >
-                  Username must be at least 4 characters
-                </Alert>
-              )}
-            </div>
-            <div className="form-container">
-              <label className="form-label" htmlFor="password">
-                Password:
-              </label>
-              <input
-                className="form-input"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                id="password"
-                placeholder="enter password"
-              ></input>
-              <div className="form-error">
-                {error && password.length < 8 && (
-                  <Alert
-                    severity="error"
-                    sx={{
-                      height: "20px",
-                      marginTop: "5px",
-                      paddingBottom: "none",
-                    }}
-                  >
-                    Password must be at least 8 characters
-                  </Alert>
-                )}
-              </div>
-              <Button
-                variant="contained"
-                sx={{ bgcolor: "#1a6a86", "&:hover": { bgcolor: "#248cb3" } }}
-                onClick={() => {
-                  if (username.length < 4 || password.length < 8) {
-                    setError(true);
-                    return;
-                  }
-                  setUserOjb({ username, password });
-                  setUser(username);
-                }}
-              >
-                Submit
-              </Button>
-              <div className="form-error">
-                {json && <Alert severity="error">{json.error}</Alert>}
-              </div>
-              <div className="form-container">
-                <div>Need an account? Click here to</div>
-                <Button
-                  href="/createAcct"
-                  variant="contained"
-                  sx={{
-                    bgcolor: "#d9eaf0",
-                    boxShadow: "none",
-                    color: "#1a6a86",
-                    padding: "0px",
-                    lineHeight: "16px",
-                    marginLeft: "10px",
-                    fontWeight: "600",
-                    marginBottom: "0px",
-                    "&:hover": { bgcolor: "#d9eaf0" },
-                  }}
-                >
-                  Sign Up
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                  Don't have an account? Click here to Sign Up!
+                </NavLink>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
   );
 }
 

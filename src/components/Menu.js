@@ -22,7 +22,7 @@ function Menu() {
   };
   return (
     <>
-      <AppBar position="static" sx={{ bgcolor: "rgb(26, 106, 134)" }}>
+      <AppBar position="static" sx={{ bgcolor: "#1A6A86" }}>
         <Toolbar variant="regular">
           {!user.username && (
             <>
