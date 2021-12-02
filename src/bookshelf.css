@@ -33,13 +33,6 @@ body {
   right: 20px;
 }
 
-.book-container {
-  display: flex;
-  flex-direction: row;
-  padding-top: 10px;
-  width: 300px;
-}
-
 .cover-image {
   height: 170px;
   margin: 10px;

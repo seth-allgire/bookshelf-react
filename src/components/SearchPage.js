@@ -24,9 +24,7 @@ export default function SearchPage() {
   const [queryInput, setQueryInput] = useState("");
   const [query, setQuery] = useState("");
   const [authorQuery, setAuthorQuery] = useState("");
-  // const [formError, setFormError] = useState(false);
   const { json, error, loading } = useAxios(query, "get");
-  // const numFound = search.length;
 
   useEffect(() => {
     if (json) {
@@ -73,7 +71,6 @@ export default function SearchPage() {
               <TextField
                 sx={{ mb: "3px" }}
                 required
-                // fullWidth
                 id="search"
                 label="Book Title/Keyword"
                 name="search"
@@ -86,7 +83,6 @@ export default function SearchPage() {
           </Grid>
           <Button
             type="submit"
-            // fullWidth
             variant="contained"
             sx={{
               mt: "15px",
@@ -111,7 +107,6 @@ export default function SearchPage() {
           )}
           {search.length > 0 && !loading && (
             <TextField
-              // fullWidth
               id="author"
               label="Author"
               name="author"
@@ -130,9 +125,6 @@ export default function SearchPage() {
               val.author.toLowerCase().includes(authorQuery.toLowerCase())
             )
             .map((val) => (
-              // <Box sx={{ display: "flex", flexWrap: "wrap", width: "100vw" }}>
-              //   <Grid container spacing={2}>
-              //     <Grid item xs={4}>
               <BookDisplay
                 isMyBook={myBooks.some(
                   (book) => book.cover_id === val.cover_id
@@ -147,70 +139,8 @@ export default function SearchPage() {
                 deleteMyBook={deleteMyBook}
                 addBookNote={addBookNote}
               ></BookDisplay>
-              //     </Grid>
-              //   </Grid>
-              // </Box>
             ))}
       </Box>
     </>
-    // <div>
-    //   <input
-    //     className="form-input"
-    //     value={queryInput}
-    //     onChange={(e) => setQueryInput(e.target.value)}
-    //     id="search"
-    //     name="search"
-    //     placeholder="enter title here"
-    //   ></input>
-    //   <Button
-    //     onClick={() => {
-    //       setQuery(bookURL + queryInput);
-    //       setAuthorQuery("");
-    //     }}
-    //   >
-    //     Search
-    //   </Button>
-    //   {loading && (
-    //     <>
-    //       <CircularProgress sx={{}} />
-    //       <div>Loading</div>
-    //     </>
-    //   )}
-
-    //   {search.length > 0 && !loading && (
-    //     <>
-    //       <label htmlFor="author">Filter by Author:</label>
-    //       <input
-    //         className="form-input"
-    //         value={authorQuery}
-    //         onChange={(e) => setAuthorQuery(e.target.value)}
-    //         id="author"
-    //         name="author"
-    //         placeholder="author name"
-    //       ></input>
-    //     </>
-    //   )}
-    //   {search &&
-    //     !loading &&
-    //     search
-    //       .filter((val) =>
-    //         val.author.toLowerCase().includes(authorQuery.toLowerCase())
-    //       )
-    //       .map((val) => (
-    //         <BookDisplay
-    //           isMyBook={myBooks.some((book) => book.cover_id === val.cover_id)}
-    //           key={val.cover_id}
-    //           book_id={val.book_id}
-    //           title={val.title}
-    //           author={val.author}
-    //           cover_id={val.cover_id}
-    //           published={val.published}
-    //           addMyBook={addMyBook}
-    //           deleteMyBook={deleteMyBook}
-    //           addBookNote={addBookNote}
-    //         ></BookDisplay>
-    //       ))}
-    //   {search.length > 0 && <Pagination count={10} />}
-    // </div>
   );
 }

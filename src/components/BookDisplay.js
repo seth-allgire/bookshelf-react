@@ -3,27 +3,18 @@ import {
   Card,
   CardActions,
   CardContent,
-  IconButton,
   Typography,
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Tooltip,
   Popover,
   TextField,
   Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Grid,
+  Button,
   Box,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import InfoIcon from "@mui/icons-material/Info";
-import CreateIcon from "@mui/icons-material/Create";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
 
 function BookDisplay({
   title,
@@ -77,9 +68,6 @@ function BookDisplay({
             onClick={handleDialogOpen}
           ></img>
         )}
-        {/* <Button variant="outlined" onClick={handleDialogOpen}>
-        Open alert dialog
-      </Button> */}
         <Dialog
           open={open}
           onClose={handleDialogClose}
@@ -88,294 +76,176 @@ function BookDisplay({
         >
           <Card
             sx={{
-              width: "300px",
+              alignSelf: "center",
+              textAlign: "center",
+              width: "50vw",
               position: "relative",
-              bgcolor: "#b8e3f3b4",
-              marginLeft: "5px",
-              marginBottom: "5px",
             }}
           >
-            <CardContent>
-              <Typography fontWeight="600">{title}</Typography>
-              <Accordion disableGutters>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography variant="subtitle2">
-                    {cover_id && (
-                      <img
-                        className="cover-detail-image"
-                        src={coverURL}
-                        alt="Book Cover"
-                        title="Book Cover"
-                      ></img>
-                    )}
-                    {!cover_id && "Cover Image Not Available"}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails
-                  sx={{ paddingTop: "0px", paddingBottom: "0px" }}
-                >
-                  <Typography variant="body2">By: {author}</Typography>
-                </AccordionDetails>
-                <AccordionDetails>
-                  <Typography variant="body2">
-                    First Published: {published}
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-            </CardContent>
-            <CardActions>
-              <Tooltip title="summary" placement="top">
-                <IconButton
+            <CardContent sx={{}}>
+              <Typography fontWeight="400" fontSize="30px" marginBottom="10px">
+                {title}
+              </Typography>
+
+              {cover_id && (
+                <img
+                  className="cover-detail-image"
+                  src={coverURL}
+                  alt="Book Cover"
+                  title="Book Cover"
+                ></img>
+              )}
+              {!cover_id && "Cover Image Not Available"}
+              <Typography>By: {author}</Typography>
+              <Typography>First Published: {published}</Typography>
+              <CardActions sx={{ justifyContent: "space-around" }}>
+                <Box
                   sx={{
-                    position: "absolute",
-                    right: "70px",
-                    marginBottom: "15px",
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "space-around",
                   }}
-                  variant="contained"
-                  size="large"
-                  target="_blank"
-                  href={infoURL}
                 >
-                  <InfoIcon color="info" />
-                </IconButton>
-              </Tooltip>
+                  {" "}
+                  <Tooltip title="Opens external link" placement="top">
+                    <Button
+                      variant="contained"
+                      sx={{
+                        fontSize: "12px",
+                        mr: "5px",
+                        mt: "15px",
+                        mb: 2,
+                        bgcolor: "#1A6A86",
+                        "&:hover": {
+                          background: "#1a6986bb",
+                        },
+                      }}
+                      startIcon={<InfoOutlinedIcon />}
+                      target="_blank"
+                      href={infoURL}
+                    >
+                      Open Library
+                    </Button>
+                  </Tooltip>
+                  {!isMyBook && (
+                    <Button
+                      variant="contained"
+                      sx={{
+                        fontSize: "12px",
+                        mr: "5px",
+                        mt: "15px",
+                        mb: 2,
+                        bgcolor: "#1A6A86",
+                        "&:hover": {
+                          background: "#1a6986bb",
+                        },
+                      }}
+                      startIcon={<AddCircleOutlineOutlinedIcon color="" />}
+                      onClick={() =>
+                        addMyBook({
+                          title,
+                          author,
+                          published,
+                          cover_id,
+                          book_id,
+                        })
+                      }
+                    >
+                      Save to Shelf
+                    </Button>
+                  )}
+                  {isMyBook && (
+                    <Button
+                      variant="contained"
+                      sx={{
+                        fontSize: "12px",
+                        mr: "5px",
+                        mt: "15px",
+                        mb: 2,
+                        bgcolor: "#1A6A86",
+                        "&:hover": {
+                          background: "#1a6986bb",
+                        },
+                      }}
+                      startIcon={<RemoveCircleOutlineOutlinedIcon color="" />}
+                      onClick={() => deleteMyBook(cover_id)}
+                    >
+                      Remove from Shelf
+                    </Button>
+                  )}
+                  {isMyBook && (
+                    <Button
+                      variant="contained"
+                      sx={{
+                        fontSize: "12px",
+                        mt: "15px",
+                        mb: 2,
+                        bgcolor: "#1A6A86",
+                        "&:hover": {
+                          background: "#1a6986bb",
+                        },
+                      }}
+                      startIcon={<CreateOutlinedIcon />}
+                      onClick={handleClick}
+                    >
+                      Add Notes
+                    </Button>
+                  )}
+                </Box>
+                <Popover
+                  id={id}
+                  open={textOpen}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "center",
+                  }}
+                  transformOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      padding: "10px",
+                    }}
+                  >
+                    <TextField
+                      id="outlined-multiline-static"
+                      label="Book Note"
+                      multiline
+                      rows={3}
+                      value={bookNote}
+                      onChange={handleChange}
+                      placeholder="add your note"
+                    />
 
-              {!isMyBook && (
-                <Tooltip title="add to shelf" placement="top">
-                  <IconButton
-                    sx={{
-                      position: "absolute",
-                      right: "40px",
-                      marginBottom: "15px",
-                    }}
-                    size="large"
-                    onClick={() =>
-                      addMyBook({
-                        title,
-                        author,
-                        published,
-                        cover_id,
-                        book_id,
-                      })
-                    }
-                  >
-                    <AddCircleIcon color="success" />
-                  </IconButton>
-                </Tooltip>
-              )}
-              {isMyBook && (
-                <Tooltip title="Remove from shelf" placement="top">
-                  <IconButton
-                    sx={{
-                      position: "absolute",
-                      right: "40px",
-                      marginBottom: "15px",
-                    }}
-                    size="large"
-                    onClick={() => deleteMyBook(cover_id)}
-                  >
-                    <RemoveCircleIcon color="error" />
-                  </IconButton>
-                </Tooltip>
-              )}
-              {isMyBook && (
-                <IconButton
-                  size="large"
-                  aria-describedby={id}
-                  onClick={handleClick}
-                >
-                  <CreateIcon sx={{ color: "#FFA500" }} />
-                </IconButton>
-              )}
-              <Popover
-                id={id}
-                open={textOpen}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "center",
-                }}
-                transformOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-              >
-                <TextField
-                  id="standard-helperText"
-                  label="Book Notes"
-                  multiline
-                  maxRows={6}
-                  value={bookNote}
-                  onChange={handleChange}
-                  sx={{ marginTop: "7px", outline: "none" }}
-                />
-                <button onClick={() => addBookNote({ bookNote })}>Save</button>
-              </Popover>
-            </CardActions>
+                    <Button
+                      variant="contained"
+                      sx={{
+                        fontSize: "10px",
+                        mt: "15px",
+                        mb: 2,
+                        bgcolor: "#1A6A86",
+                        "&:hover": {
+                          background: "#1a6986bb",
+                        },
+                      }}
+                      onClick={() => addBookNote({ bookNote })}
+                    >
+                      Save
+                    </Button>
+                  </Box>
+                </Popover>
+              </CardActions>
+            </CardContent>
           </Card>
-
-          {/* <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
-        </DialogActions> */}
         </Dialog>
       </div>
-
-      {/* {cover_id && title.length < 34 && (
-        <Card
-          sx={{
-            width: "300px",
-            position: "relative",
-            bgcolor: "#b8e3f3b4",
-            marginLeft: "5px",
-            marginBottom: "5px",
-          }}
-        >
-          <CardContent>
-            <Typography fontWeight="600">{title}</Typography>
-            <Accordion disableGutters>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography variant="subtitle2">
-                  {cover_id && (
-                    <img
-                      className="cover-image"
-                      src={coverURL}
-                      alt="Book Cover"
-                      title="Book Cover"
-                    ></img>
-                  )}
-                  {!cover_id && "Cover Image Not Available"}
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails
-                sx={{ paddingTop: "0px", paddingBottom: "0px" }}
-              >
-                <Typography variant="body2">By: {author}</Typography>
-              </AccordionDetails>
-              <AccordionDetails>
-                <Typography variant="body2">
-                  First Published: {published}
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          </CardContent>
-          <CardActions>
-            <Tooltip title="summary" placement="top">
-              <IconButton
-                sx={{
-                  position: "absolute",
-                  right: "70px",
-                  marginBottom: "15px",
-                }}
-                variant="contained"
-                size="large"
-                target="_blank"
-                href={infoURL}
-              >
-                <InfoIcon color="info" />
-              </IconButton>
-            </Tooltip>
-
-            {!isMyBook && (
-              <Tooltip title="add to shelf" placement="top">
-                <IconButton
-                  sx={{
-                    position: "absolute",
-                    right: "40px",
-                    marginBottom: "15px",
-                  }}
-                  size="large"
-                  onClick={() =>
-                    addMyBook({
-                      title,
-                      author,
-                      published,
-                      cover_id,
-                      book_id,
-                    })
-                  }
-                >
-                  <AddCircleIcon color="success" />
-                </IconButton>
-              </Tooltip>
-            )}
-            {isMyBook && (
-              <Tooltip title="Remove from shelf" placement="top">
-                <IconButton
-                  sx={{
-                    position: "absolute",
-                    right: "40px",
-                    marginBottom: "15px",
-                  }}
-                  size="large"
-                  onClick={() => deleteMyBook(cover_id)}
-                >
-                  <RemoveCircleIcon color="error" />
-                </IconButton>
-              </Tooltip>
-            )}
-            {isMyBook && (
-              <IconButton
-                size="large"
-                aria-describedby={id}
-                onClick={handleClick}
-              >
-                <CreateIcon sx={{ color: "#FFA500" }} />
-              </IconButton>
-            )}
-            <Popover
-              id={id}
-              open={open}
-              anchorEl={anchorEl}
-              onClose={handleClose}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "center",
-              }}
-              transformOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-            >
-              <TextField
-                id="standard-helperText"
-                label="Book Notes"
-                multiline
-                maxRows={6}
-                value={bookNote}
-                onChange={handleChange}
-                sx={{ marginTop: "7px", outline: "none" }}
-              />
-              <button onClick={() => addBookNote({ bookNote })}>Save</button>
-            </Popover>
-          </CardActions>
-        </Card>
-      )} */}
     </>
-
-    // </Box>
-    // </Grid>
-    // </Grid>
   );
 }
 
