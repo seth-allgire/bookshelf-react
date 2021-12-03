@@ -25,7 +25,14 @@ function MyBooksPage() {
           {user.username}'s Bookshelf
         </Typography>
       </Box>
-      <Box sx={{ display: "flex", flexWrap: "wrap", width: "100vw" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          width: "100vw",
+          justifyContent: "center",
+        }}
+      >
         {myBooks.map((val) => {
           return (
             <BookDisplay

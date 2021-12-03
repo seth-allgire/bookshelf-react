@@ -68,6 +68,7 @@ function BookDisplay({
             onClick={handleDialogOpen}
           ></img>
         )}
+        <div className="shelf"></div>
         <Dialog
           open={open}
           onClose={handleDialogClose}

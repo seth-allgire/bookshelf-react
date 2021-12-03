@@ -95,14 +95,6 @@ export default function SearchPage() {
                 type="submit"
                 variant="containedPrimary"
                 sx={{ mt: "20px" }}
-                // sx={{
-                //   ml: "5px",
-                //   mt: "18px",
-                //   bgcolor: "#1A6A86",
-                //   "&:hover": {
-                //     background: "#1a6986bb",
-                //   },
-                // }}
                 onClick={() => {
                   setQuery(bookURL + queryInput);
                   setAuthorQuery("");
@@ -143,7 +135,13 @@ export default function SearchPage() {
         </Box>
       </Container>
       <Box
-        sx={{ display: "flex", flexWrap: "wrap", width: "100vw", mt: "15px" }}
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          width: "100vw",
+          mt: "15px",
+          justifyContent: "center",
+        }}
       >
         {search &&
           !loading &&
