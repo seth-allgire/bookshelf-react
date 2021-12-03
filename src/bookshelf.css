@@ -38,7 +38,8 @@ body {
   margin-left: -2px;
   margin-right: 2px;
   border-top: 15px ridge rgb(73, 49, 31);
-  box-shadow: 5px 10px 15px;
+  box-shadow: 5px 5px 15px 1px;
+  margin-bottom: 20px;
 }
 
 .cover-image {
