@@ -2,7 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import { BookContext } from "../shared/BookContext";
 import { NavLink } from "react-router-dom";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import { AppBar, Button, Toolbar } from "@mui/material";
+import { AppBar, Avatar, Button, Toolbar, Typography } from "@mui/material";
+import LocalLibraryOutlined from "@mui/icons-material/LocalLibraryOutlined";
 
 function Menu() {
   const [showButton, setShowButton] = useState(false);
@@ -22,8 +23,14 @@ function Menu() {
   };
   return (
     <>
-      <AppBar position="static" sx={{ bgcolor: "#1A6A86" }}>
+      <AppBar position="sticky" sx={{ bgcolor: "#1A6A86" }}>
         <Toolbar variant="regular">
+          <Avatar>
+            <LocalLibraryOutlined sx={{ fontSize: "40px" }} />{" "}
+          </Avatar>
+          <Typography variant="h4" sx={{ marginRight: "30px" }}>
+            Bookshelf
+          </Typography>
           {!user.username && (
             <>
               <NavLink to="/login" className="link" activeClassName="active">

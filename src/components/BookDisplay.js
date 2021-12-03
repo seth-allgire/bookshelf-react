@@ -64,7 +64,7 @@ function BookDisplay({
             className="cover-image"
             src={coverURL}
             alt="Book Cover"
-            title="Book Cover"
+            title={title}
             onClick={handleDialogOpen}
           ></img>
         )}
@@ -111,16 +111,6 @@ function BookDisplay({
                   <Tooltip title="Opens external link" placement="top">
                     <Button
                       variant="containedSecondary"
-                      // sx={{
-                      //   fontSize: "12px",
-                      //   mr: "5px",
-                      //   mt: "15px",
-                      //   mb: 2,
-                      //   bgcolor: "#1A6A86",
-                      //   "&:hover": {
-                      //     background: "#1a6986bb",
-                      //   },
-                      // }}
                       startIcon={<InfoOutlinedIcon />}
                       target="_blank"
                       href={infoURL}
@@ -131,16 +121,6 @@ function BookDisplay({
                   {!isMyBook && (
                     <Button
                       variant="containedSecondary"
-                      // sx={{
-                      //   fontSize: "12px",
-                      //   mr: "5px",
-                      //   mt: "15px",
-                      //   mb: 2,
-                      //   bgcolor: "#1A6A86",
-                      //   "&:hover": {
-                      //     background: "#1a6986bb",
-                      //   },
-                      // }}
                       startIcon={<AddCircleOutlineOutlinedIcon color="" />}
                       onClick={() =>
                         addMyBook({
@@ -158,16 +138,6 @@ function BookDisplay({
                   {isMyBook && (
                     <Button
                       variant="containedSecondary"
-                      // sx={{
-                      //   fontSize: "12px",
-                      //   mr: "5px",
-                      //   mt: "15px",
-                      //   mb: 2,
-                      //   bgcolor: "#1A6A86",
-                      //   "&:hover": {
-                      //     background: "#1a6986bb",
-                      //   },
-                      // }}
                       startIcon={<RemoveCircleOutlineOutlinedIcon color="" />}
                       onClick={() => deleteMyBook(cover_id)}
                     >
@@ -178,15 +148,6 @@ function BookDisplay({
                     <Button
                       variant="containedSecondary"
                       sx={{ mr: "0px" }}
-                      // sx={{
-                      //   fontSize: "12px",
-                      //   mt: "15px",
-                      //   mb: 2,
-                      //   bgcolor: "#1A6A86",
-                      //   "&:hover": {
-                      //     background: "#1a6986bb",
-                      //   },
-                      // }}
                       startIcon={<CreateOutlinedIcon />}
                       onClick={handleClick}
                     >
@@ -228,15 +189,6 @@ function BookDisplay({
                     <Button
                       variant="containedSecondary"
                       sx={{ mr: "0px" }}
-                      // sx={{
-                      //   fontSize: "10px",
-                      //   mt: "15px",
-                      //   mb: 2,
-                      //   bgcolor: "#1A6A86",
-                      //   "&:hover": {
-                      //     background: "#1a6986bb",
-                      //   },
-                      // }}
                       onClick={() => addBookNote({ bookNote })}
                     >
                       Save

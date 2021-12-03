@@ -7,6 +7,7 @@ export function BookProvider(props) {
   const [user, setUser] = useState({});
   const [search, setSearch] = useState([]);
   const [myBooks, setMyBooks] = useState([]);
+  const [bookNotes, setBookNotes] = useState({});
 
   useEffect(() => {
     async function verify() {
@@ -34,17 +35,18 @@ export function BookProvider(props) {
   //TODO HOW DO I SET THIS UP?
   const addBookNote = useCallback(
     async (bookNote) => {
-      const { data } = await axios.post("/api/myBooks/add", {
+      const { data } = await axios.post("/api/bookNotes/add", {
         ...bookNote,
       });
-      setMyBooks((curr) => {
+      setBookNotes((curr) => {
         return [...curr, data.data];
       });
     },
-    [setMyBooks]
+    [setBookNotes]
   );
   //need to create a new table for book notes that is tied by foreign key to myBooks;
   //then need to adjust "getbyusername" so that it pulls notes along with books
+
   const addMyBook = useCallback(
     async (book) => {
       const { data } = await axios.post("/api/myBooks/add", {
@@ -56,21 +58,6 @@ export function BookProvider(props) {
     },
     [setMyBooks]
   );
-
-  // const getSummary = useCallback(
-  //   async
-  // )
-
-  // useEffect(() => {
-  //   async function getSummary() {
-  //     const { data } = await axios.get(`/api/myBooks/user`);
-  //     if (!data.success) return;
-  //     setMyBooks(data.data);
-  //   }
-  //   if (user.username) {
-  //     getMyBooks();
-  //   }
-  // }, [user]);
 
   const deleteMyBook = useCallback(
     async (id) => {
@@ -88,8 +75,9 @@ export function BookProvider(props) {
       setUser({});
       setSearch([]);
       setMyBooks([]);
+      setBookNotes({});
     } catch (e) {}
-  }, [setUser, setSearch, setMyBooks]);
+  }, [setUser, setSearch, setMyBooks, setBookNotes]);
 
   return (
     <BookContext.Provider
@@ -97,7 +85,7 @@ export function BookProvider(props) {
         user,
         search,
         myBooks,
-
+        bookNotes,
         setUser,
         setSearch,
         addBookNote,

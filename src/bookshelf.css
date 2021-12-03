@@ -6,8 +6,7 @@ body {
 .link {
   color: #ffffff;
   text-decoration: none;
-  font-weight: 600;
-  margin-right: 20px;
+  margin-right: 30px;
   position: relative;
 }
 
@@ -26,11 +25,11 @@ body {
 .logout {
   background-color: #1a6a86;
   color: white;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
   border: none;
   position: absolute;
   right: 20px;
+  margin-top: -1px;
 }
 
 .shelf {
@@ -38,7 +37,7 @@ body {
   margin-left: -2px;
   margin-right: 2px;
   border-top: 15px ridge rgb(73, 49, 31);
-  box-shadow: 5px 5px 15px 1px;
+  box-shadow: 5px 5px 15px;
   margin-bottom: 20px;
 }
 
@@ -47,12 +46,12 @@ body {
   margin: 10px;
   margin-bottom: 0px;
   cursor: pointer;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.158);
 }
 
 .cover-image:hover {
-  transform: scale(1.1, 1.1) translate(5px, 5px);
-  transition: all 150ms;
+  transform: scale(1.1, 1.1) translate(5px, 15px);
+  transition: all 200ms;
 }
 
 .cover-detail-image {
