@@ -59,7 +59,10 @@ function Menu() {
                 position: "fixed",
                 bottom: "20px",
                 right: "20px",
-                bgcolor: "#1a6a86",
+                bgcolor: "#1A6A86",
+                "&:hover": {
+                  background: "#1a6986bb",
+                },
               }}
               variant="contained"
               endIcon={<ArrowUpwardIcon />}

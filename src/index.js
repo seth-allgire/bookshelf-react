@@ -4,11 +4,15 @@ import "./bookshelf.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BookProvider } from "./shared/BookContext";
+import { ThemeProvider } from "@emotion/react";
+import BookTheme from "./BookTheme";
 
 ReactDOM.render(
-  <BookProvider>
-    <App />
-  </BookProvider>,
+  <ThemeProvider theme={BookTheme}>
+    <BookProvider>
+      <App />
+    </BookProvider>
+  </ThemeProvider>,
   document.getElementById("root")
 );
 
