@@ -6,11 +6,11 @@ import {
   CircularProgress,
   Button,
   Box,
-  Grid,
   Avatar,
   TextField,
   Typography,
   Container,
+  Alert,
 } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
@@ -58,16 +58,26 @@ export default function SearchPage() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "#1A6A86" }}>
+          <Avatar>
             <SearchOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Search
           </Typography>
         </Box>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
+        <Box>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{
+              mt: "40px",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+            }}
+          >
+            <Box>
               <TextField
                 sx={{ mb: "3px" }}
                 required
@@ -79,45 +89,62 @@ export default function SearchPage() {
                 onChange={(e) => setQueryInput(e.target.value)}
                 helperText="Enter book title or keyword"
               />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            variant="contained"
+            </Box>
+            <Box>
+              <Button
+                type="submit"
+                variant="containedPrimary"
+                sx={{ mt: "20px" }}
+                // sx={{
+                //   ml: "5px",
+                //   mt: "18px",
+                //   bgcolor: "#1A6A86",
+                //   "&:hover": {
+                //     background: "#1a6986bb",
+                //   },
+                // }}
+                onClick={() => {
+                  setQuery(bookURL + queryInput);
+                  setAuthorQuery("");
+                }}
+              >
+                Search
+              </Button>
+            </Box>
+          </Box>
+          <Box
             sx={{
               mt: "15px",
-              mb: 2,
-              bgcolor: "#1A6A86",
-              "&:hover": {
-                background: "#1a6986bb",
-              },
-            }}
-            onClick={() => {
-              setQuery(bookURL + queryInput);
-              setAuthorQuery("");
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
             }}
           >
-            Search
-          </Button>
-          {loading && (
-            <>
-              <CircularProgress sx={{}} />
-              <div>Loading</div>
-            </>
-          )}
-          {search.length > 0 && !loading && (
-            <TextField
-              id="author"
-              label="Author"
-              name="author"
-              value={authorQuery}
-              onChange={(e) => setAuthorQuery(e.target.value)}
-              helperText="Filter by author"
-            />
-          )}
+            {loading && (
+              <>
+                <CircularProgress sx={{ color: "#1A6A86" }} />
+                <div>Loading</div>
+              </>
+            )}
+            {search.length > 0 && !loading && (
+              <TextField
+                id="author"
+                label="Author"
+                name="author"
+                value={authorQuery}
+                onChange={(e) => setAuthorQuery(e.target.value)}
+                helperText="Filter by author"
+              />
+            )}
+            {search.length > 0 && !loading && error && (
+              <Alert severity="error">{error}</Alert>
+            )}
+          </Box>
         </Box>
       </Container>
-      <Box sx={{ display: "flex", flexWrap: "wrap", width: "100vw" }}>
+      <Box
+        sx={{ display: "flex", flexWrap: "wrap", width: "100vw", mt: "15px" }}
+      >
         {search &&
           !loading &&
           search
