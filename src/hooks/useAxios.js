@@ -14,6 +14,7 @@ export default function useAxios(url, method, body = null) {
       setLoading(true);
       setJson(null);
       setError(null);
+      console.log(error);
       try {
         const response = await axios[method](url, body);
         if (response.data.error) {

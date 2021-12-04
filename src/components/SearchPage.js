@@ -82,12 +82,12 @@ export default function SearchPage() {
                 sx={{ mb: "3px" }}
                 required
                 id="search"
-                label="Book Title/Keyword"
+                label="Book title keyword"
                 name="search"
                 autoComplete="search"
                 value={queryInput}
                 onChange={(e) => setQueryInput(e.target.value)}
-                helperText="Enter book title or keyword"
+                helperText="Enter keyword of title"
               />
             </Box>
             <Box>

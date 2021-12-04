@@ -5,7 +5,6 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import FriendsPage from "./components/FriendsPage";
 import LoginPage from "./components/LoginPage";
 import Menu from "./components/Menu";
 import MyBooksPage from "./components/MyBooksPage";
@@ -29,9 +28,6 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute shielded={true} path="/myBooks">
           <MyBooksPage />
-        </ProtectedRoute>
-        <ProtectedRoute shielded={true} path="/friends">
-          <FriendsPage />
         </ProtectedRoute>
         <Route path="*">
           <Redirect to="/login"></Redirect>

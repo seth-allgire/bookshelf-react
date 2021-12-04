@@ -50,9 +50,6 @@ function Menu() {
               <NavLink to="/myBooks" className="link" activeClassName="active">
                 My Bookshelf
               </NavLink>
-              <NavLink to="/friends" className="link" activeClassName="active">
-                Friends
-              </NavLink>
             </>
           )}
           <button className="logout" variant="contained" onClick={clearState}>

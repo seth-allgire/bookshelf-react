@@ -45,7 +45,7 @@ export function BookProvider(props) {
     [setBookNotes]
   );
   //need to create a new table for book notes that is tied by foreign key to myBooks;
-  //then need to adjust "getbyusername" so that it pulls notes along with books
+  //then need to adjust "getbyusername" so that it pulls notes along with books???
 
   const addMyBook = useCallback(
     async (book) => {
