@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const userRoutes = require("./server/routes/users.routes");
 const myBooksRoutes = require("./server/routes/myBooks.routes");
-const bookNotesRoutes = require("./server/routes/myBooks.routes");
+// const bookNotesRoutes = require("./server/routes/myBooks.routes");
 const passport = require("./server/config/passport.conf");
 
 app.use(express.json());
@@ -14,7 +14,7 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use("/api/users", userRoutes);
 app.use("/api/myBooks", myBooksRoutes);
-app.use("/api/bookNotes", bookNotesRoutes);
+// app.use("/api/bookNotes", bookNotesRoutes);
 
 app.get("*", (req, res) => {
   return res.sendFile("/build/index.html", { root: __dirname + "/" });

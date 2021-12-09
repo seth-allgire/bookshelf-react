@@ -189,7 +189,7 @@ function BookDisplay({
                     <Button
                       variant="containedSecondary"
                       sx={{ mr: "0px" }}
-                      // onClick={() => addBookNote({ bookNote })}
+                      onClick={() => addBookNote({ bookNote })}
                     >
                       Save
                     </Button>
