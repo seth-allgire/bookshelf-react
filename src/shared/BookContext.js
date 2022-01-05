@@ -34,12 +34,17 @@ export function BookProvider(props) {
 
   //TODO HOW DO I SET THIS UP?
   const addBookNote = useCallback(
-    async (bookNote) => {
-      const { data } = await axios.post("/api/bookNotes/add", {
-        ...bookNote,
+    async (bookNote, cover_id) => {
+      const { data } = await axios.post("/api/myBooks/note", {
+        bookNote,
+        cover_id,
       });
-      setBookNotes((curr) => {
-        return [...curr, data.data];
+      if (!data.success) return;
+      setMyBooks((curr) => {
+        return curr.map((book) => {
+          if (book.cover_id !== cover_id) return book;
+          return { ...book, bookNote };
+        });
       });
     },
     [setBookNotes]

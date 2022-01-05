@@ -26,12 +26,13 @@ function BookDisplay({
   addMyBook,
   deleteMyBook,
   addBookNote,
+  bookNote,
 }) {
   const coverURL = "https://covers.openlibrary.org/b/id/" + cover_id + "-L.jpg";
-  const infoURL = "https://openlibrary.org" + book_id;
+  const infoURL = "https://openlibrary.org" + book_id + ".json";
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [bookNote, setBookNote] = useState("");
+  const [newBookNote, setNewBookNote] = useState(bookNote);
   const [open, setOpen] = React.useState(false);
 
   const handleDialogOpen = () => {
@@ -42,7 +43,7 @@ function BookDisplay({
     setOpen(false);
   };
   const handleChange = (event) => {
-    setBookNote(event.target.value);
+    setNewBookNote(event.target.value);
   };
 
   const handleClick = (event) => {
@@ -60,13 +61,16 @@ function BookDisplay({
     <>
       <div className="cover-container">
         {cover_id && (
-          <img
-            className="cover-image"
-            src={coverURL}
-            alt="Book Cover"
-            title={title}
-            onClick={handleDialogOpen}
-          ></img>
+          <>
+            <img
+              className="cover-image"
+              src={coverURL}
+              alt="Book Cover"
+              title={title}
+              onClick={handleDialogOpen}
+            ></img>
+            <div className="book-spine"></div>
+          </>
         )}
         <div className="shelf"></div>
         <Dialog
@@ -99,6 +103,8 @@ function BookDisplay({
               {!cover_id && "Cover Image Not Available"}
               <Typography>By: {author}</Typography>
               <Typography>First Published: {published}</Typography>
+              <Typography>Notes: {bookNote}</Typography>
+
               <CardActions sx={{ justifyContent: "space-around" }}>
                 <Box
                   sx={{
@@ -181,7 +187,7 @@ function BookDisplay({
                       label="Book Note"
                       multiline
                       rows={3}
-                      value={bookNote}
+                      value={newBookNote}
                       onChange={handleChange}
                       placeholder="add your note"
                     />
@@ -189,7 +195,7 @@ function BookDisplay({
                     <Button
                       variant="containedSecondary"
                       sx={{ mr: "0px" }}
-                      onClick={() => addBookNote({ bookNote })}
+                      onClick={() => addBookNote(newBookNote, cover_id)}
                     >
                       Save
                     </Button>

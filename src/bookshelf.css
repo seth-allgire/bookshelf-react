@@ -41,17 +41,43 @@ body {
   margin-bottom: 20px;
 }
 
+.cover-container:hover {
+  perspective: 500px;
+}
+
+/* .book-spine {
+  display: inline-block;
+  width: 20px;
+  height: 172px;
+  margin-left: -20px;
+} */
+
+/* .cover-container:hover ~ .book-spine {
+  display: inline-block;
+  width: 10px;
+  margin-left: -7px;
+  background-color: blue;
+  transform: rotateY(25deg) scale(1.1, 1.1) translate(5px, 25px);
+  transition: all 200ms;
+} */
+
 .cover-image {
   height: 170px;
   margin: 10px;
+  margin-right: 15px;
   margin-bottom: 0px;
   cursor: pointer;
-  border: 1px solid rgba(0, 0, 0, 0.158);
+  outline: 1px solid rgba(0, 0, 0, 0.158);
 }
 
 .cover-image:hover {
-  transform: scale(1.1, 1.1) translate(5px, 15px);
+  transform-style: preserve-3d;
+  transform: rotateY(-20deg) scale(1.1, 1.1) translate(5px, 25px);
   transition: all 200ms;
+  border-right: 5px solid rgb(231, 226, 220);
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin-right: 10px;
 }
 
 .cover-detail-image {

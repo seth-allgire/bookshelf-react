@@ -45,6 +45,7 @@ function MyBooksPage() {
               published={val.published}
               deleteMyBook={deleteMyBook}
               addBookNote={addBookNote}
+              bookNote={val.bookNote}
             />
           );
         })}

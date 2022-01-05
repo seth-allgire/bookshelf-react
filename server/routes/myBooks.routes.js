@@ -35,16 +35,16 @@ router.post("/add", auth, (req, res) => {
 });
 
 //TODO need to get this working!!!
-router.post("/add/:id", auth, (req, res) => {
-  const { bookNote } = req.body;
-  if (!bookNote) {
+router.post("/note", auth, (req, res) => {
+  const { bookNote, cover_id } = req.body;
+  if (!bookNote || !cover_id) {
     return req.send({
       success: false,
       error: "Invalid data provided",
       data: null,
     });
   }
-  addBookNote(res, req.bookNote);
+  addBookNote(res, bookNote, req.user.id, cover_id);
 });
 
 router.delete("/delete/:id", auth, (req, res) => {

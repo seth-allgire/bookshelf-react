@@ -33,7 +33,7 @@ export default function SearchPage() {
           key: idx,
           book_id: book.key,
           title: book.title,
-          author: book.author_name.toString(),
+          author: book.author_name ? book.author_name.toString() : "unknown",
           cover_id: book.cover_i,
           published: book.first_publish_year,
         }))

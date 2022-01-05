@@ -37,22 +37,20 @@ async function deleteMyBook(res, id, user_id) {
   }
 }
 //TODO need to get this working!!
-async function addBookNote(res, cover_id, user_id) {
+async function addBookNote(res, bookNote, user_id, cover_id) {
   try {
     await query(
       "UPDATE myBooks SET bookNote = ? WHERE myBooks.cover_id = ? AND myBooks.user_id = ?",
-      [cover_id, user_id]
+      [bookNote, cover_id, user_id]
     );
     return res.send({
       success: true,
       error: null,
-      data: id,
     });
   } catch (e) {
     return res.send({
       success: false,
       error: "Something went wrong",
-      data: null,
     });
   }
 }
