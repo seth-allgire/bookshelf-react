@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import {
-  Card,
   CardActions,
-  CardContent,
-  Typography,
   Tooltip,
-  Popover,
   TextField,
   Dialog,
   Button,
   Box,
 } from "@mui/material";
+import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
@@ -33,10 +31,13 @@ function BookDisplay({
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [newBookNote, setNewBookNote] = useState(bookNote);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [scroll, setScroll] = useState("body");
+  const [openNote, setOpenNote] = useState(false);
 
   const handleDialogOpen = () => {
     setOpen(true);
+    setScroll(scroll);
   };
 
   const handleDialogClose = () => {
@@ -54,8 +55,14 @@ function BookDisplay({
     setAnchorEl(null);
   };
 
-  const textOpen = Boolean(anchorEl);
-  const id = textOpen ? "simple-popover" : undefined;
+  const handleNoteDialogOpen = () => {
+    setOpenNote(true);
+    setScroll(scroll);
+  };
+
+  const handleNoteDialogClose = () => {
+    setOpenNote(false);
+  };
 
   return (
     <>
@@ -76,35 +83,147 @@ function BookDisplay({
         <Dialog
           open={open}
           onClose={handleDialogClose}
+          scroll={scroll}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <Card
+          {/* <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          > */}
+          {/* <Card
             sx={{
               alignSelf: "center",
               textAlign: "center",
               width: "50vw",
               position: "relative",
             }}
+          > */}
+          <div
+            style={{
+              padding: "10px",
+              // display: "flex",
+              // flexFlow: "column wrap",
+              // alignContent: "center",
+            }}
           >
-            <CardContent sx={{}}>
-              <Typography fontWeight="400" fontSize="30px" marginBottom="10px">
+            {/* <CardContent sx={{ alignSelf: "center" }}> */}
+            {/* <Typography fontWeight="400" fontSize="30px" marginBottom="10px">
                 {title}
-              </Typography>
+              </Typography> */}
+            <div
+              style={{
+                alignSelf: "center",
+                fontWeight: "400",
+                fontSize: "30px",
+                marginBottom: "10px",
+              }}
+            >
+              {title}
+            </div>
 
-              {cover_id && (
+            {cover_id && (
+              <div
+                style={{
+                  // padding: "10px",
+                  display: "flex",
+                  flexFlow: "column wrap",
+                  // alignContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <img
                   className="cover-detail-image"
                   src={coverURL}
                   alt="Book Cover"
                   title="Book Cover"
                 ></img>
-              )}
-              {!cover_id && "Cover Image Not Available"}
-              <Typography>By: {author}</Typography>
-              <Typography>First Published: {published}</Typography>
-              <Typography>Notes: {bookNote}</Typography>
 
+                {!cover_id && "Cover Image Not Available"}
+                {/* <Typography>By: {author}</Typography>
+              <Typography>First Published: {published}</Typography> */}
+                <div>By: {author}</div>
+                <div>First Published: {published}</div>
+              </div>
+            )}
+          </div>
+          <CardActions sx={{ justifyContent: "space-around" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-around",
+              }}
+            >
+              {" "}
+              <Tooltip title="Opens external link" placement="top">
+                <Button
+                  variant="containedSecondary"
+                  startIcon={<InfoOutlinedIcon />}
+                  target="_blank"
+                  href={infoURL}
+                >
+                  Open Library
+                </Button>
+              </Tooltip>
+              {!isMyBook && (
+                <Button
+                  variant="containedSecondary"
+                  startIcon={<AddCircleOutlineOutlinedIcon color="" />}
+                  onClick={() =>
+                    addMyBook({
+                      title,
+                      author,
+                      published,
+                      cover_id,
+                      book_id,
+                    })
+                  }
+                >
+                  Save to Shelf
+                </Button>
+              )}
+              {isMyBook && (
+                <Button
+                  variant="containedSecondary"
+                  startIcon={<RemoveCircleOutlineOutlinedIcon color="" />}
+                  onClick={() => deleteMyBook(cover_id)}
+                >
+                  Remove from Shelf
+                </Button>
+              )}
+              {isMyBook && (
+                <Button
+                  variant="containedSecondary"
+                  sx={{ mr: "0px" }}
+                  startIcon={<CreateOutlinedIcon />}
+                  onClick={handleNoteDialogOpen}
+                >
+                  Book Notes
+                </Button>
+              )}
+            </Box>
+          </CardActions>
+
+          <Dialog open={openNote} fullWidth>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                padding: "10px",
+              }}
+            >
+              <TextField
+                label="Book Note"
+                multiline
+                rows={8}
+                value={newBookNote}
+                onChange={handleChange}
+                placeholder="add your note"
+              />
               <CardActions sx={{ justifyContent: "space-around" }}>
                 <Box
                   sx={{
@@ -114,96 +233,35 @@ function BookDisplay({
                   }}
                 >
                   {" "}
-                  <Tooltip title="Opens external link" placement="top">
+                  <Tooltip title="Save" placement="top">
                     <Button
+                      startIcon={<SaveOutlinedIcon />}
                       variant="containedSecondary"
-                      startIcon={<InfoOutlinedIcon />}
-                      target="_blank"
-                      href={infoURL}
-                    >
-                      Open Library
-                    </Button>
-                  </Tooltip>
-                  {!isMyBook && (
-                    <Button
-                      variant="containedSecondary"
-                      startIcon={<AddCircleOutlineOutlinedIcon color="" />}
-                      onClick={() =>
-                        addMyBook({
-                          title,
-                          author,
-                          published,
-                          cover_id,
-                          book_id,
-                        })
-                      }
-                    >
-                      Save to Shelf
-                    </Button>
-                  )}
-                  {isMyBook && (
-                    <Button
-                      variant="containedSecondary"
-                      startIcon={<RemoveCircleOutlineOutlinedIcon color="" />}
-                      onClick={() => deleteMyBook(cover_id)}
-                    >
-                      Remove from Shelf
-                    </Button>
-                  )}
-                  {isMyBook && (
-                    <Button
-                      variant="containedSecondary"
-                      sx={{ mr: "0px" }}
-                      startIcon={<CreateOutlinedIcon />}
-                      onClick={handleClick}
-                    >
-                      Add Notes
-                    </Button>
-                  )}
-                </Box>
-                <Popover
-                  id={id}
-                  open={textOpen}
-                  anchorEl={anchorEl}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "center",
-                  }}
-                  transformOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      padding: "10px",
-                    }}
-                  >
-                    <TextField
-                      id="outlined-multiline-static"
-                      label="Book Note"
-                      multiline
-                      rows={3}
-                      value={newBookNote}
-                      onChange={handleChange}
-                      placeholder="add your note"
-                    />
-
-                    <Button
-                      variant="containedSecondary"
-                      sx={{ mr: "0px" }}
-                      onClick={() => addBookNote(newBookNote, cover_id)}
+                      onClick={() => {
+                        addBookNote(newBookNote, cover_id);
+                        handleNoteDialogClose();
+                      }}
                     >
                       Save
                     </Button>
-                  </Box>
-                </Popover>
+                  </Tooltip>
+                  <Button
+                    variant="containedSecondary"
+                    startIcon={<CancelOutlinedIcon />}
+                    onClick={() => {
+                      handleNoteDialogClose();
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </Box>
               </CardActions>
-            </CardContent>
-          </Card>
+            </Box>
+          </Dialog>
+          {/* </CardContent> */}
+          {/* </Card> */}
+
+          {/* </div> */}
         </Dialog>
       </div>
     </>

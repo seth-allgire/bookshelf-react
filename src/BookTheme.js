@@ -19,6 +19,7 @@ const BookTheme = createTheme({
           marginLeft: "5px",
           marginTop: "18px",
           backgroundColor: "#1a6a86",
+          textTransform: "none",
           color: "#ffffff",
           "&:hover": {
             backgroundColor: "#1a6986bb",
@@ -27,6 +28,7 @@ const BookTheme = createTheme({
         containedSecondary: {
           color: "#ffffff",
           fontSize: "12px",
+          textTransform: "none",
           marginRight: "5px",
           marginTop: "15px",
           marginBottom: 2,
